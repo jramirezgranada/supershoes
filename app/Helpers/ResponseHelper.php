@@ -25,13 +25,14 @@ class ResponseHelper
             $this->error_code = $code;
             unset($this->message, $this->code);
         } else {
-            $this->error_msg = $message;
-            $this->error_code = $code;
+            $this->message = $message;
+            $this->code = $code;
             unset($this->error_msg, $this->error_code);
         }
 
         $this->success = $success;
         $this->object = $object;
+        
         return $this;
     }
 }

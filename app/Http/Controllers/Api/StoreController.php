@@ -104,4 +104,38 @@ class StoreController extends Controller
                 'success' => true
             ]);
     }
+
+    /**
+     * Soft delete a store.
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteStore($id)
+    {
+        $id = (int)$id;
+
+        if (!is_int($id) || $id == 0) {
+            return response()->json($this->responseHelper->getResponseObject(
+                'Bad Request',
+                400,
+                false
+            ));
+        }
+
+        $store = Store::findOrFail($id)->delete();
+
+        if ($store) {
+            return response()->json($this->responseHelper->getResponseObject(
+                'Store with id ' . $id . ' has been deleted.',
+                200,
+                true
+            ));
+        }
+
+        return response()->json($this->responseHelper->getResponseObject(
+            'There was a problem deleting the store',
+            500,
+            false
+        ));
+    }
 }
