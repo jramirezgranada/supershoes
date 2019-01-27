@@ -88,4 +88,20 @@ class StoreController extends Controller
                 'success' => true
             ]);
     }
+
+    /**
+     * Update store in the database
+     * @param CreateStoreRequest $request
+     * @return StoreResource
+     */
+    public function updateStore(CreateStoreRequest $request, $id)
+    {
+        $store = Store::findOrFail($id);
+        $store->fill($request->all())->save();
+
+        return (new StoreResource($store->fresh()))
+            ->additional([
+                'success' => true
+            ]);
+    }
 }
