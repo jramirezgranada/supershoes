@@ -14,9 +14,11 @@
 Route::get('stores', 'Api\StoreController@getStores');
 Route::get('stores/{id}', 'Api\StoreController@getStore');
 Route::post('stores/create', 'Api\StoreController@createStore');
+Route::patch('stores/update/{id}', 'Api\StoreController@updateStore');
 Route::get('articles/stores/{id}', 'Api\StoreController@getArticlesStore');
 
 Route::get('articles', 'Api\ArticleController@getArticles');
+Route::post('articles/create', 'Api\ArticleController@createArticle');
 Route::get('articles/{id}', 'Api\ArticleController@getArticle');
 
 /*

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateArticleRequest;
 use App\Http\Resources\Article as ArticleResource;
 use App\Models\Article;
 
@@ -41,10 +42,23 @@ class ArticleController extends Controller
         }
 
         $article = Article::with('store')->findOrFail($id);
-        
+
         return (new ArticleResource($article))
             ->additional([
                 'success' => true
+            ]);
+    }
+
+    /**
+     * Create new article
+     * @param CreateArticleRequest $request
+     * @return ArticleResource
+     */
+    public function createArticle(CreateArticleRequest $request)
+    {
+        return (new ArticleResource(Article::create($request->all())))
+            ->additional([
+                'success' => true,
             ]);
     }
 }
