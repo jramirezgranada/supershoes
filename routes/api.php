@@ -12,3 +12,23 @@
 */
 
 Route::get('stores', 'Api\StoreController@getStores');
+Route::get('stores/{id}', 'Api\StoreController@getStore');
+Route::post('stores/create', 'Api\StoreController@createStore');
+Route::get('articles/stores/{id}', 'Api\StoreController@getArticlesStore');
+
+Route::get('articles', 'Api\ArticleController@getArticles');
+Route::get('articles/{id}', 'Api\ArticleController@getArticle');
+
+/*
+ * Fallback route to override the 404 response, This renders a json response
+ * insteadof a 404 view
+ */
+Route::fallback(function () {
+    return response()->json(
+        [
+            'error_msg' => 'Record not Found.',
+            'error_code' => 404,
+            'success' => false
+        ],
+        404);
+})->name('fallback');
