@@ -56,9 +56,28 @@ class ArticleController extends Controller
      */
     public function createArticle(CreateArticleRequest $request)
     {
-        return (new ArticleResource(Article::create($request->all())))
+        $store = Article::create($request->all());
+
+        return (new ArticleResource($store->fresh('store')))
             ->additional([
                 'success' => true,
+            ]);
+    }
+
+    /**
+     * Update an article
+     * @param CreateArticleRequest $request
+     * @param $id
+     * @return ArticleResource
+     */
+    public function updateArticle(CreateArticleRequest $request, $id)
+    {
+        $article = Article::findOrFail($id);
+        $article->fill($request->all())->save();
+
+        return (new ArticleResource($article->fresh('store')))
+            ->additional([
+                'success' => true
             ]);
     }
 }
