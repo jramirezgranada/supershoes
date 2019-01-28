@@ -80,4 +80,38 @@ class ArticleController extends Controller
                 'success' => true
             ]);
     }
+
+    /**
+     * Soft delete an Article.
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteArticle($id)
+    {
+        $id = (int)$id;
+
+        if (!is_int($id) || $id == 0) {
+            return response()->json($this->responseHelper->getResponseObject(
+                'Bad Request',
+                400,
+                false
+            ));
+        }
+
+        $article = Article::findOrFail($id)->delete();
+
+        if ($article) {
+            return response()->json($this->responseHelper->getResponseObject(
+                'Article with id ' . $id . ' has been deleted.',
+                200,
+                true
+            ));
+        }
+
+        return response()->json($this->responseHelper->getResponseObject(
+            'There was a problem deleting the store',
+            500,
+            false
+        ));
+    }
 }

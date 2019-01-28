@@ -15,7 +15,7 @@ class Controller extends BaseController
     public $responseHelper;
 
     /**
-     * CashoutController constructor.
+     * Controller constructor.
      */
     public function __construct()
     {
