@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function getArticles()
     {
-        $articles = Article::all();
+        $articles = Article::with('store')->get();
 
         return (new ArticleResource($articles))
             ->additional([
