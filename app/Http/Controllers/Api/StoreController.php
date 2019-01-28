@@ -14,7 +14,7 @@ class StoreController extends Controller
      * Load all the stores that are stored in the Database.
      * @return StoreResource
      */
-    public function getStores()
+    public function index()
     {
         $stores = Store::all();
         return (new StoreResource($stores))
@@ -56,7 +56,7 @@ class StoreController extends Controller
      * @param $id
      * @return StoreResource|\Illuminate\Http\JsonResponse
      */
-    public function getStore($id)
+    public function show($id)
     {
         $id = (int)$id;
 
@@ -81,7 +81,7 @@ class StoreController extends Controller
      * @param CreateStoreRequest $request
      * @return StoreResource
      */
-    public function createStore(CreateStoreRequest $request)
+    public function store(CreateStoreRequest $request)
     {
         return (new StoreResource(Store::create($request->all())))
             ->additional([
@@ -94,7 +94,7 @@ class StoreController extends Controller
      * @param CreateStoreRequest $request
      * @return StoreResource
      */
-    public function updateStore(CreateStoreRequest $request, $id)
+    public function update(CreateStoreRequest $request, $id)
     {
         $store = Store::findOrFail($id);
         $store->fill($request->all())->save();
@@ -110,7 +110,7 @@ class StoreController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteStore($id)
+    public function destroy($id)
     {
         $id = (int)$id;
 

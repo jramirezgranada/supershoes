@@ -13,7 +13,7 @@ class ArticleController extends Controller
      * Load all the articles that are in the Database.
      * @return ArticleResource
      */
-    public function getArticles()
+    public function index()
     {
         $articles = Article::with('store')->get();
 
@@ -29,7 +29,7 @@ class ArticleController extends Controller
      * @param $id
      * @return ArticleResource|\Illuminate\Http\JsonResponse
      */
-    public function getArticle($id)
+    public function show($id)
     {
         $id = (int)$id;
 
@@ -54,7 +54,7 @@ class ArticleController extends Controller
      * @param CreateArticleRequest $request
      * @return ArticleResource
      */
-    public function createArticle(CreateArticleRequest $request)
+    public function store(CreateArticleRequest $request)
     {
         $store = Article::create($request->all());
 
@@ -70,7 +70,7 @@ class ArticleController extends Controller
      * @param $id
      * @return ArticleResource
      */
-    public function updateArticle(CreateArticleRequest $request, $id)
+    public function update(CreateArticleRequest $request, $id)
     {
         $article = Article::findOrFail($id);
         $article->fill($request->all())->save();
@@ -86,7 +86,7 @@ class ArticleController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteArticle($id)
+    public function destroy($id)
     {
         $id = (int)$id;
 
