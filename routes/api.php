@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::resource('stores', 'Api\StoreController')->except([
+    'create', 'edit'
+]);
+
+Route::get('articles/stores/{id}', 'Api\StoreController@getArticlesStore');
+
+Route::resource('articles', 'Api\ArticleController')->except([
+    'create', 'edit'
+]);
+
+/*
+ * Fallback route to override the 404 response, This renders a json response
+ * insteadof a 404 view
+ */
+Route::fallback(function () {
+    return response()->json(
+        [
+            'error_msg' => 'Record not Found.',
+            'error_code' => 404,
+            'success' => false
+        ],
+        404);
+})->name('fallback');
