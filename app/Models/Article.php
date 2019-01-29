@@ -16,6 +16,6 @@ class Article extends Model
      */
     public function store()
     {
-        return $this->belongsTo('App\Models\Store');
+        return $this->belongsTo('App\Models\Store')->withTrashed();
     }
 }
